@@ -11,7 +11,7 @@ http = require('http')
 #
 redis = null
 if process.env.REDISTOGO_URL
-  rtg=require("url").parse(process.env.REDISTOGO_URL)
+  rtg = require("url").parse(process.env.REDISTOGO_URL)
   redis = require("redis").createClient(rtg.port, rtg.hostname)
   redis.auth rtg.auth.split(":")[1]
 else
@@ -60,8 +60,8 @@ app.get "/", (req, res) ->
 #sockets
 #
 io.sockets.on "connection", (socket) ->
-    socket "message:new",
-      message: "welcome!"
+  socket.emit "message:new",
+    message: "welcome!"
   socket.on "message:send", (data) ->
     io.sockets.emit "message:new",
       message: "broadcast!"
